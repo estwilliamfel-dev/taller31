@@ -48,3 +48,30 @@ function obtenerCodigo(x, y, xmin, ymin, xmax, ymax) {
     else if (y > ymax) codigo |= TOP;
     return codigo;
 }
+//Algoritmo de Cohen-Sutherland para recortar líneas, con manejo de casos y actualización iterativa de los puntos
+function cohenSutherland(x1, y1, x2, y2, xmin, ymin, xmax, ymax) {
+    let code1 = obtenerCodigo(x1, y1, xmin, ymin, xmax, ymax);
+    let code2 = obtenerCodigo(x2, y2, xmin, ymin, xmax, ymax);
+    let aceptada = false;
+
+    while (true) {
+        if (code1 === 0 && code2 === 0) {
+            aceptada = true; break;
+        } else if ((code1 & code2) !== 0) {
+            break;
+        } else {
+            let codeOut = code1 !== 0 ? code1 : code2;
+            let x, y;
+            let m = (x2 !== x1) ? (y2 - y1) / (x2 - x1) : 0;
+
+            if (codeOut & TOP) { x = x1 + (ymax - y1) / m; if(x1===x2) x=x1; y = ymax; }
+            else if (codeOut & BOTTOM) { x = x1 + (ymin - y1) / m; if(x1===x2) x=x1; y = ymin; }
+            else if (codeOut & RIGHT) { y = y1 + m * (xmax - x1); x = xmax; }
+            else if (codeOut & LEFT) { y = y1 + m * (xmin - x1); x = xmin; }
+
+            if (codeOut === code1) { x1 = x; y1 = y; code1 = obtenerCodigo(x1, y1, xmin, ymin, xmax, ymax); }
+            else { x2 = x; y2 = y; code2 = obtenerCodigo(x2, y2, xmin, ymin, xmax, ymax); }
+        }
+    }
+    return { aceptada, x1, y1, x2, y2 };
+}
