@@ -33,3 +33,18 @@ function dibujarLinea(x1, y1, x2, y2, color, grosor = 2) {
     ctx.lineTo(x2, y2);
     ctx.stroke();
 }
+ //Define las constantes binarias y la función parametrizada que evalúa y asigna el código de 4 bits a un punto
+const INSIDE = 0; // 0000
+const LEFT   = 1; // 0001
+const RIGHT  = 2; // 0010
+const BOTTOM = 4; // 0100
+const TOP    = 8; // 1000
+
+function obtenerCodigo(x, y, xmin, ymin, xmax, ymax) {
+    let codigo = INSIDE;
+    if (x < xmin)      codigo |= LEFT;
+    else if (x > xmax) codigo |= RIGHT;
+    if (y < ymin)      codigo |= BOTTOM;
+    else if (y > ymax) codigo |= TOP;
+    return codigo;
+}
