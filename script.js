@@ -75,3 +75,20 @@ function cohenSutherland(x1, y1, x2, y2, xmin, ymin, xmax, ymax) {
     }
     return { aceptada, x1, y1, x2, y2 };
 }
+
+function actualizarVentana() {
+    ventana.xmin = parseFloat(document.getElementById('w_x1').value);
+    ventana.ymin = parseFloat(document.getElementById('w_y1').value);
+    ventana.xmax = parseFloat(document.getElementById('w_x2').value);
+    ventana.ymax = parseFloat(document.getElementById('w_y2').value);
+    renderizarEscena();
+}
+
+function cambiarEscena(direccion) {
+    escenaActual += direccion;
+    if (escenaActual < 0) escenaActual = lineasCasos.length - 1;
+    if (escenaActual >= lineasCasos.length) escenaActual = 0;
+    
+    document.getElementById('scene-info').innerText = `Escena ${escenaActual + 1} de 5`;
+    renderizarEscena();
+}
