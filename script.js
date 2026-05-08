@@ -92,3 +92,27 @@ function cambiarEscena(direccion) {
     document.getElementById('scene-info').innerText = `Escena ${escenaActual + 1} de 5`;
     renderizarEscena();
 }
+
+function renderizarEscena() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    dibujarViewport(ventana.xmin, ventana.ymin, ventana.xmax, ventana.ymax);
+
+    let linea = lineasCasos[escenaActual];
+    document.getElementById('desc-text').innerText = linea.desc;
+
+    dibujarLinea(linea.x1, linea.y1, linea.x2, linea.y2, "#d3d3d3", 1);
+
+    let resultado = cohenSutherland(
+        linea.x1, linea.y1, linea.x2, linea.y2, 
+        ventana.xmin, ventana.ymin, ventana.xmax, ventana.ymax
+    );
+
+    if (resultado.aceptada) {
+        dibujarLinea(resultado.x1, resultado.y1, resultado.x2, resultado.y2, "green", 3);
+    } else {
+        dibujarLinea(linea.x1, linea.y1, linea.x2, linea.y2, "rgba(255, 0, 0, 0.5)", 2);
+    }
+}
+
+// Inicializar la primera vista
+renderizarEscena();
