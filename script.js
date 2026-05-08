@@ -15,3 +15,21 @@ const ctx = canvas.getContext('2d');
 // Transformar el canvas para que el (0,0) esté en la esquina inferior izquierda
 ctx.translate(0, canvas.height);
 ctx.scale(1, -1);
+
+//Funciones de dibujo (2)
+function dibujarViewport(xmin, ymin, xmax, ymax) {
+    ctx.strokeStyle = "blue";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.rect(xmin, ymin, xmax - xmin, ymax - ymin);
+    ctx.stroke();
+}
+
+function dibujarLinea(x1, y1, x2, y2, color, grosor = 2) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = grosor;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+}
