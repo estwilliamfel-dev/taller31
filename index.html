@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cohen-Sutherland - Taller 31</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        canvas { border: 1px solid #ccc; background-color: #f9f9f9; margin-top: 15px; }
+        .controls { margin-bottom: 15px; padding: 15px; background: #eee; border-radius: 5px; display: inline-block;}
+        .nav-controls { margin-top: 10px; font-weight: bold; }
+        input { width: 60px; margin-right: 10px; }
+        button { padding: 5px 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Algoritmo de Cohen-Sutherland</h2>
+    
+    <div class="controls">
+        <strong>Ventana de recorte:</strong><br><br>
+        <label>x<sub>1</sub> <input type="number" id="w_x1" value="100"></label>
+        <label>y<sub>1</sub> <input type="number" id="w_y1" value="100"></label><br><br>
+        <label>x<sub>2</sub> <input type="number" id="w_x2" value="400"></label>
+        <label>y<sub>2</sub> <input type="number" id="w_y2" value="400"></label>
+        <button onclick="actualizarVentana()">Actualizar</button>
+    </div>
+
+    <div class="nav-controls">
+        <button onclick="cambiarEscena(-1)">&#8592; Anterior</button>
+        <span id="scene-info" style="margin: 0 15px;">Escena 1/5</span>
+        <button onclick="cambiarEscena(1)">Siguiente &#8594;</button>
+    </div>
+    
+    <p id="desc-text" style="color: #333; font-style: italic;"></p>
+
+    <canvas id="plano" width="600" height="500"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
